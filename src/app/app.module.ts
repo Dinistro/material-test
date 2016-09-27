@@ -5,18 +5,24 @@ import { HttpModule } from '@angular/http';
 import { MaterialModule } from '@angular/material';
 
 import { AppComponent } from './app.component';
+import { HomeComponent } from './home/home.component';
+import { routing, appRoutingProviders } from './app.routes';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
-    MaterialModule.forRoot()
+    MaterialModule.forRoot(),
+    routing
   ],
-  providers: [],
+  providers: [
+    appRoutingProviders
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
