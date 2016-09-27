@@ -4,14 +4,22 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { MaterialModule } from '@angular/material';
 
+import { routing, appRoutingProviders } from './app.routes';
+
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
-import { routing, appRoutingProviders } from './app.routes';
+import { LoginComponent } from './login/login.component';
+import { LoginDialog } from './login/login.dialog';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent
+    HomeComponent,
+    LoginComponent,
+    LoginDialog
+  ],
+  entryComponents: [
+    LoginDialog
   ],
   imports: [
     BrowserModule,
