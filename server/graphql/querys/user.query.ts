@@ -1,20 +1,10 @@
-import {User} from '../types/user';
+/// <reference path="../../../node_modules/typescript/lib/lib.es6.d.ts" />
+
+
 let graphql = require('graphql');
 
 import {UserType} from '../types/user.type';
-
-
-let Users:User[] = [
-  {
-    id: 1,
-    username: 'Pedro'
-  },
-  {
-    id: 2,
-    username: 'Christian'
-  }
-];
-
+import {User} from '../../mongo/user.model';
 
 export const userQuery = new graphql.GraphQLObjectType({
   name: 'Query',
@@ -23,7 +13,15 @@ export const userQuery = new graphql.GraphQLObjectType({
       users: {
         type: new graphql.GraphQLList(UserType),
         resolve: () => {
-          return Users;
+          return new Promise((resolve, reject) => {
+            User.find((err, users) => {
+              if (err) {
+                reject(err);
+              } else {
+                resolve(users);
+              }
+            });
+          });
         }
       }
     }

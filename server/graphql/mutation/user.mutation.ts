@@ -1,6 +1,8 @@
-import {User} from '../types/user';
+/// <reference path="../../../node_modules/typescript/lib/lib.es6.d.ts" />
+
 let graphql = require('graphql');
 import {UserType} from '../types/user.type';
+import {User} from '../../mongo/user.model';
 
 export const MutationType = new graphql.GraphQLObjectType({
   name: 'Mutation',
@@ -14,21 +16,22 @@ export const MutationType = new graphql.GraphQLObjectType({
         }
       },
       resolve: (root, args) => {
-        var user = new User(
-          args.username
-        );
+        var user = new User({
+          username: args.username
+        });
 
-        user.id = 42;
+        user.id = user._id;
 
-        return user;
-
-        //newTodo.id = newTodo._id
-        //return new Promise((resolve, reject) => {
-          /*newTodo.save(function (err) {
-            if (err) reject(err)
-            else resolve(newTodo)
-          })*/
-        //})
+        return new Promise((resolve, reject) => {
+          user.save((err) => {
+            if (err) {
+              reject(err);
+            }
+            else {
+              resolve(user);
+            }
+          })
+        })
       }
     }
   }

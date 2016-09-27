@@ -1,4 +1,4 @@
-
+import './mongo/db';
 import {schema} from './graphql/schema';
 const graphql = require('graphql');
 
