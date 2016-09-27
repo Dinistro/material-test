@@ -5,11 +5,22 @@
       <h2>Login</h2>
     </div>
   </md-toolbar>
-  <md-input name="username" [(ngModel)]="user.username"
-            placeholder="Username" #username>
-    <label>Username</label>
-    <md-hint align="end">{{username.characterCount}} / 42</md-hint>
-  </md-input>
+  <md-card>
+
+    <md-input name="username" [(ngModel)]="user.username"
+              placeholder="Username" #username>
+      <label>Username</label>
+      <md-hint align="end">{{username.characterCount}} / 42</md-hint>
+    </md-input>
+
+    <p>
+      <md-radio-group [(ngModel)]="user.gender" required>
+        <md-radio-button name="gender" value="male">Male</md-radio-button>
+        <md-radio-button name="gender" value="female">Female</md-radio-button>
+      </md-radio-group>
+    </p>
+
+  </md-card>
 
   <hr/>
   {{user | json}}
@@ -17,7 +28,7 @@
 
   <div layout="row" class="demo-dialog-button">
     <button md-raised-button md-autofocus flex class="md-primary"
-            (click)="close()">
+            (click)="go()">
       Go!
     </button>
   </div>

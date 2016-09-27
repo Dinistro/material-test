@@ -1,5 +1,5 @@
 import { Component, ViewChild, ViewContainerRef, OnInit } from '@angular/core';
-import {MdSidenav, MdDialog, MdDialogConfig} from "@angular/material";
+import {MdSidenav, MdDialog, MdDialogRef, MdDialogConfig} from "@angular/material";
 import {LoginDialog} from "../login/login.dialog";
 
 @Component({
@@ -29,10 +29,16 @@ export class HomeComponent implements OnInit {
 
   currentDog = {};
 
+  dialogRef: MdDialogRef<LoginDialog>;
+
   openLogin() {
     const config = new MdDialogConfig();
     config.viewContainerRef = this.vcr;
-    this.dialog.open(LoginDialog, config);
+    this.dialogRef = this.dialog.open(LoginDialog, config);
+    this.dialogRef.afterClosed().subscribe(result => {
+      console.log('TODO > Refresh', result);
+      this.dialogRef = null;
+    });
   }
 
   showDog(dog) {
